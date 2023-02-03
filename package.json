@@ -7,7 +7,7 @@
     "dev": "vite --port=2998",
     "build": "vite build",
     "serve": "vite serve",
-    "deploy": "npx gh-pages -d dist",
+    "deploy": "vite build && npx gh-pages -d dist",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "outdated": "ncu -t minor -u",
