@@ -35,5 +35,8 @@
     "tslib": "^2.5.0",
     "typescript": "^4.9.5",
     "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "carbon-icons-svelte": "^11.4.0"
   }
 }
