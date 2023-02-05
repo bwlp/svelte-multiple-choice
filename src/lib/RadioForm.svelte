@@ -1,3 +1,5 @@
+<svelte:options immutable={true} />
+
 <script lang="ts">
   import QuestionAlert from "./QuestionAlert.svelte";
   import RadioGroup from "./RadioGroup.svelte";
@@ -45,7 +47,7 @@
 <QuestionAlert {numberOfQuestions} {question} />
 
 <section class="grid-cols-4 grid border-collapse" on:keydown={handleKeyPress}>
-  {#each questionArray as _, index}
-    <RadioGroup questionIndex={index} {numberOfOptions} />
+  {#each questionArray as _, questionIndex (questionIndex)}
+    <RadioGroup {questionIndex} bind:numberOfOptions />
   {/each}
 </section>
