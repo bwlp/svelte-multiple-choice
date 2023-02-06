@@ -1,9 +1,6 @@
 <script lang="ts">
-  import Flag from "carbon-icons-svelte/lib/Flag.svelte";
-  import FlagFilled from "carbon-icons-svelte/lib/FlagFilled.svelte";
-  import Locked from "carbon-icons-svelte/lib/Locked.svelte";
-  import Unlocked from "carbon-icons-svelte/lib/Unlocked.svelte";
   import { fieldsetBindings } from "./stores";
+  import RadioGroupToggle from "./RadioGroupToggle.svelte";
   export let questionIndex: number;
   export let numberOfOptions: number;
 
@@ -37,11 +34,11 @@
   function handleChange(e) {
     // TODO: output result
   }
-  function handleToggleLocked() {
-    isLocked = !isLocked;
+  function handleToggleLocked(event) {
+    isLocked = event.detail;
   }
-  function handleToggleMarked() {
-    isMarked = !isMarked;
+  function handleToggleMarked(event) {
+    isMarked = event.detail;
   }
 </script>
 
@@ -58,30 +55,12 @@
 >
   <div class="flex justify-between mb-1">
     <label class="fieldset-legend">Question {questionNumber}</label>
-    <div class="flex gap-2">
-      {#if isLocked}
-        <span
-          class="cursor-pointer text-green-500"
-          on:click={handleToggleLocked}
-        >
-          <Locked />
-        </span>
-      {:else}
-        <span class="cursor-pointer" on:click={handleToggleLocked}>
-          <Unlocked />
-        </span>
-      {/if}
-
-      {#if isMarked}
-        <span class="cursor-pointer text-red-500" on:click={handleToggleMarked}>
-          <FlagFilled />
-        </span>
-      {:else}
-        <span class="cursor-pointer" on:click={handleToggleMarked}>
-          <Flag />
-        </span>
-      {/if}
-    </div>
+    <RadioGroupToggle
+      {isMarked}
+      {isLocked}
+      on:toggle-locked={handleToggleLocked}
+      on:toggle-marked={handleToggleMarked}
+    />
   </div>
 
   <div class="flex flex-wrap gap-y-4 gap-x-10">
