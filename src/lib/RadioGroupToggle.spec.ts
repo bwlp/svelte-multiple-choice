@@ -17,7 +17,6 @@ describe('RadioGroupToggle', () => {
     expect(screen.getByTestId('marked')).toBeVisible();
   });
 
-  
   it('should toggle the toggle icons', () => {
     const { component } = render(RadioGroupToggle, { props: { isMarked: false, isLocked: false }});
     const mockToggleLocked = vitest.fn();
@@ -32,7 +31,7 @@ describe('RadioGroupToggle', () => {
     
     fireEvent.click(screen.getByTestId('unlocked'));
     fireEvent.click(screen.getByTestId('unmarked'));
-
+    
     expect(mockToggleLocked).toHaveBeenCalledWith(true);
     expect(mockToggleMarked).toHaveBeenCalledWith(true);
   });

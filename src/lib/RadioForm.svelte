@@ -10,7 +10,9 @@
   const questionArray = Array(numberOfQuestions);
   let question: string = "";
   const handleKeyPress = (e: KeyboardEvent) => {
-    if (/[0-9]/.test(e.key)) {
+    if (e.key === "Space") {
+      e.preventDefault();
+    } else if (/[0-9]/.test(e.key)) {
       question = question.concat(e.key);
       if (parseInt(question) > numberOfQuestions) {
         question = numberOfQuestions.toString();

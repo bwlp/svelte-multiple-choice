@@ -15,6 +15,7 @@
   const radios = [];
 
   let value: string = "A";
+
   function handleKeyPress(e: KeyboardEvent) {
     const key = e.key.toUpperCase();
 
@@ -22,12 +23,12 @@
       value = key;
       radios[options.indexOf(key)].focus();
     }
-    if (key === "M" && isFocused) {
-      isMarked = !isMarked;
-    }
     if (key === "L" && isFocused) {
       isLocked = !isLocked;
       fieldsetBindings[questionIndex].focus();
+    }
+    if (key === "M" && isFocused) {
+      isMarked = !isMarked;
     }
   }
 
@@ -45,6 +46,7 @@
 <fieldset
   tabindex="0"
   class="fieldset"
+  class:isFocused
   class:isLocked
   id="question{questionNumber}"
   on:keypress={handleKeyPress}
@@ -52,9 +54,10 @@
   on:focus|capture={() => (isFocused = true)}
   on:blur|capture={() => (isFocused = false)}
   bind:this={fieldsetBindings[questionIndex]}
+  data-testid="radio_group"
 >
   <div class="flex justify-between mb-1">
-    <label class="fieldset-legend">Question {questionNumber}</label>
+    <legend class="fieldset-legend">Question {questionNumber}</legend>
     <RadioGroupToggle
       {isMarked}
       {isLocked}
