@@ -19,7 +19,7 @@
   function handleKeyPress(e: KeyboardEvent) {
     const key = e.key.toUpperCase();
 
-    if (options.includes(key)) {
+    if (options.includes(key) && !isLocked) {
       value = key;
       radios[options.indexOf(key)].focus();
     }
