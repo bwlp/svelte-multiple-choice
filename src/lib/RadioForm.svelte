@@ -3,11 +3,13 @@
 <script lang="ts">
   import QuestionAlert from "./QuestionAlert.svelte";
   import RadioGroup from "./RadioGroup.svelte";
+  import SessionBar from "./SessionBar.svelte";
   import { fieldsetBindings } from "./stores";
 
   let numberOfOptions: number = 4;
   let numberOfQuestions: number = 40;
-  const questionArray = Array(numberOfQuestions);
+  let questionArray = Array(numberOfQuestions);
+  $: questionArray = Array(numberOfQuestions);
   let question: string = "";
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === "Space") {
@@ -44,9 +46,22 @@
       }
     }
   };
+
+  function changeQuestions(event) {
+    numberOfQuestions = event.detail;
+  }
+  function changeOptions(event) {
+    numberOfOptions = event.detail;
+  }
 </script>
 
 <QuestionAlert {numberOfQuestions} {question} />
+<SessionBar
+  {numberOfQuestions}
+  {numberOfOptions}
+  on:change-questions={changeQuestions}
+  on:change-options={changeOptions}
+/>
 
 <section class="grid-cols-4 grid border-collapse" on:keydown={handleKeyPress}>
   {#each questionArray as _, questionIndex (questionIndex)}

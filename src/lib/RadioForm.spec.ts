@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import RadioForm from './RadioForm.svelte';
 import { render, screen, within, fireEvent, waitFor, waitForElementToBeRemoved } from '@testing-library/svelte';
+import userEvent from '@testing-library/user-event';
 
 describe('RadioForm', () => {
   it('should render 40 questions with 4 options each by default', () => {
@@ -152,6 +153,27 @@ describe('Question Alert', () => {
     expect(await screen.findByText('Jump to Question 40/40')).toBeVisible();
     fireEvent.keyDown(firstRadioGroup, { key: "Enter" });
     await waitFor(() => expect(lastRadioGroup).toHaveClass('isFocused'));
+  });
+});
+
+describe('SessionBar', () => {
+  it('should allow users to set the number of questions and number of options', async () => {
+    render(RadioForm);
+    
+    expect(screen.getByLabelText('Questions')).toHaveValue(40);
+    expect(screen.getByLabelText('Options')).toHaveValue(4);
+    
+    await userEvent.clear(screen.getByLabelText('Questions'));
+    await userEvent.type(screen.getByLabelText('Questions'), "50");
+    await waitFor(() => expect(screen.getByLabelText('Questions')).toHaveValue(50))
+    await userEvent.clear(screen.getByLabelText('Options'));
+    await userEvent.type(screen.getByLabelText('Options'), "6");
+    await waitFor(() => expect(screen.getByLabelText('Options')).toHaveValue(6))
+    await userEvent.tab();
+
+    expect(screen.getAllByTestId('radio_group')).toHaveLength(50);
+    expect(screen.getAllByLabelText('F')).toHaveLength(50);
+    expect(screen.queryByLabelText('G')).not.toBeInTheDocument();
   });
 });
 

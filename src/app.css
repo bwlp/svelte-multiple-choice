@@ -6,13 +6,20 @@
   html, body {
     @apply h-full bg-gray-800;
   }
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
 }
 @layer components {
   #app {
     @apply h-full;
   }
   .alert {
-    @apply bg-gray-300 opacity-90 fixed right-2 top-2 py-3 px-6 flex items-center
+    @apply bg-gray-300 opacity-90 fixed right-2 top-2 py-3 px-6 flex items-center z-10 rounded-sm shadow-lg;
   }
   .checkedLocked {
     background-clip: border-box;
@@ -51,5 +58,10 @@
   }
   .radio{
     @apply cursor-pointer focus-visible:outline-blue-400 disabled:cursor-default;
+  }
+  .session-card {
+    top: 40%;
+    left: 50%;
+    @apply fixed rounded bg-gray-900 h-auto w-80 -ml-40 p-6 shadow-lg text-white;
   }
 }
